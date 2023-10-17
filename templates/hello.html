@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if name %}
+        <h1>Hello {{ name }}!</h1>
+        {% else %}
+        <h1>Hello, World!</h1>
+        {% endif %}
+        <p>Thank you for visiting our website. We're glad to have you here!</p>
+    </div>
+</body>
+</html>

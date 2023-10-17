@@ -1,5 +1,6 @@
-import func
+from func import *
 from error import *
+from module import *
 
 from flask import Flask
 from flask import request
@@ -12,26 +13,15 @@ from markupsafe import Markup
 from markupsafe import escape
 
 
-app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-login_hash = set()
-passwords = {"tt" : "123456", "dd" : "654321"}
-
-
-def valid_login (name, password):
-    if passwords[name] == password:
-        return True
-    else:
-        return False
-
 def require_auth(fun):
     @wraps(fun)
     def decorator(*args, **kwargs):
         hash_ = request.cookies.get('loghash') 
         print(hash_)
-        if hash_ not in login_hash:
+        if is_log_hash(hash_):
+            return fun(*args, **kwargs)
+        else:
             return unauth()
-        else: return fun(*args, **kwargs)
     
     return decorator  
 
@@ -70,9 +60,7 @@ def login():
     if request.method == 'POST':
         if valid_login(request.form['username'],
                        request.form['password']):
-            return_val = func.set_cookie()
-            login_hash.add(return_val[0])
-            resp = return_val[1]
+            resp = set_cookie()
             resp.data = render_template('index.html', username=request.form['username'])
             return resp
         else:

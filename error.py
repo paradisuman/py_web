@@ -1,5 +1,5 @@
-from flask import url_for , Flask, redirect
-app = Flask(__name__)
+from flask import url_for , Flask, redirect, render_template
+from module import *
 
 @app.errorhandler(404)
 def page_not_find(error):
